@@ -16,7 +16,7 @@ app.set("view engine", "ejs");
 mongoose.connect('mongodb://localhost:27017/wikiDB', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 
 
-const articlesSchema = new mongoose.Schema({
+const articleSchema = new mongoose.Schema({
   title: {
     type: String,
     required: [true, "Please enter a title for your article"]
@@ -24,7 +24,7 @@ const articlesSchema = new mongoose.Schema({
 
   content: String
 });
-const Article = mongoose.model("Article", articlesSchema);
+const Article = mongoose.model("Article", articleSchema);
 
 
 app.get("/", function (req,res){
