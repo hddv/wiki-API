@@ -30,28 +30,30 @@ const Article = mongoose.model("Article", articleSchema);
 app.get("/articles", function (req,res){
 
   Article.find(function (err, articles){
-    if(err) res.send(err);
-    else{
-
-      // if(articles !== undefined && articles.length !== 0)
-      //   articles.forEach(article => {
-      //     console.log(article);
-      //   });
-
-      // else
-      //   console.log("empty");
-
-      res.send(articles);
-    }
-
-    
+    if (!err) res.send(articles);
+    else res.send(err);
   });
-
-  // res.render("index");
-  
 
 });
 
+
+app.post("/articles", function (req, res){
+
+  const title = req.body.title;
+  const content = req.body.content;
+
+  console.log(title + " + " + content);
+
+  const newArticle = new Article({
+    title: title,
+    content: content
+  });
+
+  newArticle.save(function (err){
+    if(!err) res.send("Successfully added a new article!");
+    else res.send(err);
+  });
+});
 
 
 
