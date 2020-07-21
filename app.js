@@ -33,16 +33,18 @@ app.get("/articles", function (req,res){
     if(err) console.log(err);
     else{
 
-      if(articles !== undefined && articles.length !== 0)
-        articles.forEach(article => {
-          console.log(article);
-        });
+      // if(articles !== undefined && articles.length !== 0)
+      //   articles.forEach(article => {
+      //     console.log(article);
+      //   });
 
-      else
-        console.log("empty");
+      // else
+      //   console.log("empty");
+
+      res.send(articles);
     }
 
-    res.send(articles);
+    
   });
 
   // res.render("index");
