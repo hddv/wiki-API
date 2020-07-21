@@ -35,15 +35,18 @@ app.get("/articles", function (req,res){
 
       if(articles !== undefined && articles.length !== 0)
         articles.forEach(article => {
-          console.log(article.title);
+          console.log(article);
         });
 
       else
         console.log("empty");
     }
+
+    res.send(articles);
   });
 
-  res.render("index");
+  // res.render("index");
+  
 
 });
 
