@@ -27,8 +27,9 @@ const articleSchema = new mongoose.Schema({
 const Article = mongoose.model("Article", articleSchema);
 
 
-app.get("/", function (req,res){
-  Article.find({}, function (err, articles){
+app.get("/articles", function (req,res){
+
+  Article.find(function (err, articles){
     if(err) console.log(err);
     else{
 
@@ -43,6 +44,7 @@ app.get("/", function (req,res){
   });
 
   res.render("index");
+
 });
 
 
