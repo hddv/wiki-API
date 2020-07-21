@@ -30,7 +30,7 @@ const Article = mongoose.model("Article", articleSchema);
 app.get("/articles", function (req,res){
 
   Article.find(function (err, articles){
-    if(err) console.log(err);
+    if(err) res.send(err);
     else{
 
       // if(articles !== undefined && articles.length !== 0)
