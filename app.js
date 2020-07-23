@@ -27,6 +27,9 @@ const articleSchema = new mongoose.Schema({
 const Article = mongoose.model("Article", articleSchema);
 
 
+
+// GET METHOD
+
 app.get("/articles", function (req,res){
 
   Article.find(function (err, articles){
@@ -36,6 +39,9 @@ app.get("/articles", function (req,res){
 
 });
 
+
+
+// POST METHOD
 
 app.post("/articles", function (req, res){
 
@@ -54,6 +60,21 @@ app.post("/articles", function (req, res){
     else res.send(err);
   });
 });
+
+
+
+// DELETE METHOD
+
+app.delete("/articles", function (req, res){
+
+  Article.deleteMany(function(err){
+    if(!err) res.send("Successfully deleted all articles!");
+    else res.send(err);
+  });
+
+});
+
+
 
 
 
