@@ -27,52 +27,39 @@ const articleSchema = new mongoose.Schema({
 const Article = mongoose.model("Article", articleSchema);
 
 
+//CHAINED ROUTE HANDLERs USING EXPRESS
 
-// GET METHOD
+app.route("/articles")
 
-app.get("/articles", function (req,res){
+  .get(function (req, res) {
+    Article.find(function (err, articles) {
+      if (!err) res.send(articles);
+      else res.send(err);
+    });
+  })
+  
+  .post(function (req, res) {
+    const title = req.body.title;
+    const content = req.body.content;
 
-  Article.find(function (err, articles){
-    if (!err) res.send(articles);
-    else res.send(err);
+    const newArticle = new Article({
+      title: title,
+      content: content
+    });
+
+    newArticle.save(function (err) {
+      if (!err) res.send("Successfully added a new article!");
+      else res.send(err);
+    });
+  })
+  
+  .delete(function (req, res) {
+    Article.deleteMany(function (err) {
+      if (!err) res.send("Successfully deleted all articles!");
+      else res.send(err);
+    });
   });
 
-});
-
-
-
-// POST METHOD
-
-app.post("/articles", function (req, res){
-
-  const title = req.body.title;
-  const content = req.body.content;
-
-  console.log(title + " + " + content);
-
-  const newArticle = new Article({
-    title: title,
-    content: content
-  });
-
-  newArticle.save(function (err){
-    if(!err) res.send("Successfully added a new article!");
-    else res.send(err);
-  });
-});
-
-
-
-// DELETE METHOD
-
-app.delete("/articles", function (req, res){
-
-  Article.deleteMany(function(err){
-    if(!err) res.send("Successfully deleted all articles!");
-    else res.send(err);
-  });
-
-});
 
 
 
