@@ -39,12 +39,9 @@ app.route("/articles")
   })
   
   .post(function (req, res) {
-    const title = req.body.title;
-    const content = req.body.content;
-
     const newArticle = new Article({
-      title: title,
-      content: content
+      title: req.body.title,
+      content: req.body.content
     });
 
     newArticle.save(function (err) {
@@ -76,6 +73,20 @@ app.route("/articles/:articleTitle")
       }
       else res.send(err);
     });
+
+  })
+  
+  .put(function (req, res){
+
+    console.log(req.body.title + "\n" + req.body.content);
+    Article.update(
+      {title: req.params.articleTitle}, 
+      {title: req.body.title, content: req.body.content},
+      {overwrite: true},
+      function (err){
+        if(!err) res.send("Successfully Updated that article");
+        else res.send(err);
+      });
 
   });
 
