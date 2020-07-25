@@ -84,9 +84,22 @@ app.route("/articles/:articleTitle")
       {title: req.body.title, content: req.body.content},
       {overwrite: true},
       function (err){
-        if(!err) res.send("Successfully Updated that article");
+        if(!err) res.send("Successfully Updated (PUT) that article");
         else res.send(err);
       });
+
+  })
+
+  .patch(function (req, res){
+
+    Article.update(
+      { title: req.params.articleTitle },
+      { $set: req.body }, /* only update field changed */
+      function (err){
+        if(!err) res.send("Successfully Updated (PATCH) that article");
+        else res.send(err);
+      }
+    );
 
   });
 
